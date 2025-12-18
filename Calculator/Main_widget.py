@@ -15,7 +15,7 @@ class Main(QtWidgets.QWidget):
         self.tips = QtWidgets.QTextEdit()
         self.tipLayout.addWidget(self.tips)
         self.keyboard_layout.setSpacing(2)
-        self.calculatorBarLayout.addLayout(self.tipLayout)
+        main_layout.addLayout(self.tipLayout)
 
         # Создание основных списков
         other_keys = ["C", "+", "-", "/", "*", "Xⁿ", "=", "√", ",", "π", "(", ")", "⌫"]
@@ -48,6 +48,8 @@ class Main(QtWidgets.QWidget):
                                      background-color: #303030;
                                     }
                                         """)
+        self.tips.setStyleSheet("background-color: #636363; color: #ffffff")
+        self.setStyleSheet("background-color: #7d7d7d")
 
         # Создание клавиатуры чисел
     
@@ -62,6 +64,7 @@ class Main(QtWidgets.QWidget):
                                     color: #fdfdfd""")
         self.calculatorBarLayout.addWidget(self.textEdit)
         self.textEdit.setGeometry(200, 200, 100, 100)
+        buttons[6].setFlat(False)
         main_layout.addLayout(self.calculatorBarLayout)
         main_layout.addLayout(self.keyboard_layout)
 
@@ -73,10 +76,10 @@ class Main(QtWidgets.QWidget):
         self.keyboard_layout.addWidget(other_keys[3], 3, 3)
         self.keyboard_layout.addWidget(other_keys[4], 2, 3)
         self.keyboard_layout.addWidget(other_keys[5], 5, 2)
-        self.keyboard_layout.addWidget(other_keys[6], 4, 2)
+        self.keyboard_layout.addWidget(other_keys[6], 4, 3, 2, 1)
         # self.keyboard_layout.addWidget(other_keys[7], 5, 3)
         self.keyboard_layout.addWidget(other_keys[8], 4, 0)
-        self.keyboard_layout.addWidget(other_keys[9], 4, 3)
+        self.keyboard_layout.addWidget(other_keys[9], 4, 2)
         self.keyboard_layout.addWidget(other_keys[10], 5, 0)
         self.keyboard_layout.addWidget(other_keys[11], 5, 1)
         self.keyboard_layout.addWidget(other_keys[12], 0, 1)
@@ -174,14 +177,17 @@ class Main(QtWidgets.QWidget):
     @QtCore.Slot()
     def count(self):
         try:
-            print(eval(self.problem))
+            self.textEdit.setText(str(eval(self.problem)))
+            self.problem = str(eval(self.problem))
         except ZeroDivisionError:
-            print("На 0 делить нельзя")
+            self.textEdit.setText("Zero Division Error")
+            self.problem = "0"
         except SyntaxError:
             if self.problem == "":
-                print(0)
+                self.textEdit.setText("0")
+                self.problem = "0"
             else:
-                print("Неверная запись числа")
+                self.tips.setText("Incorrect number format")
 
     @QtCore.Slot()
     def back(self):
@@ -254,6 +260,4 @@ class Main(QtWidgets.QWidget):
             self.problem+=f"*{math.pi}"
         self.textEdit.setText(self.textEdit.text() + "π")
         print(self.problem)
-    # TODO: Сделать функционал всех кнопок
-    # TODO: Поменять формат окна, чтобы было +- пополам
-    # TODO: Накатить дизайна
+    
