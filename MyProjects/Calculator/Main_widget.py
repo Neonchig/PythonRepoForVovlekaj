@@ -77,23 +77,7 @@ class Main(QtWidgets.QWidget):
         
         self.calc_layout.setText(value)
 
-    def convert(self, value:str):
-
-        value = value.replace("+", " + ")
-        value = value.replace("-", " - ")
-        value = value.replace("*", " * ")
-        value = value.replace("/", " / ")
-        value = value.replace(".", ",")
-        value = value.replace(" * 3,1416 ", "π")
-        value = value.replace("3,1416", "π")
-        """
-        TODO: перенести эту часть в Behaviour
-        TODO: Доделать метод convert
-        * I'm sooo tired T_T *
-        """
-        return value
-
     @QtCore.Slot()
     def move_problem_to_calc(self):
-        converted_problem = self.convert(self.functions.get_problem())
+        converted_problem = Behaviour.functions.convert(value=self.functions.get_problem())
         self.calc_layout.setText(converted_problem)

@@ -1,6 +1,5 @@
 from PySide6 import QtCore
 import math
-import Main
 
 class functions():
     def __init__(self):
@@ -35,6 +34,18 @@ class functions():
     
     def set_problem_mem(self, problem_mem):
         self._problem_mem = problem_mem
+    
+    def convert(value:str):
+
+        value = str(value)
+        value = str(value.replace("+", " + "))
+        value = str(value.replace("-", " - "))
+        value = str(value.replace("*", " * "))
+        value = str(value.replace("/", " / "))
+        value = str(value.replace(".", ","))
+        value = str(value.replace(" * 3,1416 ", "π"))
+        value = str(value.replace("3,1416", "π"))
+        return value
 
     @QtCore.Slot()
     def A0(self) -> None:
@@ -113,7 +124,7 @@ class functions():
 
     @QtCore.Slot()
     def AEq(self) -> None:
-        pass # TODO: Сделать вычисление
+        self.set_problem(eval(self.get_problem()))
 
     @QtCore.Slot()
     def APw(self):

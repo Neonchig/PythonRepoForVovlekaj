@@ -1,10 +1,6 @@
 import Main_widget
-import subprocess
 import sys
 from PySide6 import QtWidgets, QtCore, QtGui
-
-
-
 
 if __name__ == "__main__":
     
