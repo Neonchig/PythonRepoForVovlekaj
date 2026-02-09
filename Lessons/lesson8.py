@@ -1,5 +1,3 @@
-global i
-
 def parent_function():
     i = 0
     def my_func():
@@ -14,5 +12,21 @@ def parent_function():
 
 func = parent_function()
 
-for _ in range(10):
-    print(func())
+def stars_decorator(input_function):
+    def main_function(name):
+        print(f"{"*" * (len(name) + 12)}\n* ", end="")
+        input_function(name)
+        print(f" *\n{"*" * (len(name) + 12)}")
+
+    return main_function
+
+@stars_decorator
+def greet_someone(name):
+    print(f"Hello, {name}!", end="")
+
+#=========================#
+
+if __name__ == "__main__":
+    # for _ in range(10):
+    #     print(func())
+    greet_someone("Tom")
