@@ -1,7 +1,13 @@
-from evdev import InputDevice, UInput, ecodes
+from evdev import InputDevice, UInput, ecodes, list_devices
 import threading, time
 
-dev = InputDevice(str(input()))
+devs = [InputDevice(path) for path in list_devices()]
+
+for i in devs:
+    if 1 in i.capabilities():
+        if 272 in i.capabilities()[1] and 273 in i.capabilities()[1] and "ydotool" not in i.name and "Keyboard" not in i.name:
+            dev = i
+
 dev.grab()  # Блокируем мышь
 
 ui = UInput.from_device(dev, name='virtual-mouse')
