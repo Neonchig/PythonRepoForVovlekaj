@@ -27,6 +27,6 @@ def greet_someone(name):
 #=========================#
 
 if __name__ == "__main__":
-    # for _ in range(10):
-    #     print(func())
-    greet_someone("Tom")
+    for _ in range(10):
+        print(func())
+    # greet_someone("Tom")

@@ -12,7 +12,8 @@ def handle_mouse(engine: QQmlApplicationEngine):
 
     click_counter = root_object.findChildren(QObject, "click_count")[0]
 
-
+    with open("config", "r+") as file:
+        click_counter.setProperty("clicks", int(file.readline()))
 
     for i in devs:
         if 1 in i.capabilities():
